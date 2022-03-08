@@ -1,0 +1,16 @@
+{
+  "name": "react-native-scroll-table",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "examples": "^0.1.0",
+    "react": "^17.0.2",
+    "react-native": "^0.66.4"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.38",
+    "@types/react-native": "^0.66.11",
+    "typescript": "^4.5.4"
+  }
+}
