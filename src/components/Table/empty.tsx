@@ -1,13 +1,8 @@
 import React from 'react';
 import { View, Image, StyleSheet, Text, ViewStyle, ImageStyle, TextStyle, TouchableWithoutFeedback } from 'react-native';
-import Link from '@/components/Btn/link';
 
 export interface IProps {
     style?: ViewStyle,
-    href?: string;
-    params?: {
-        [key: string]: any;
-    };
     extra?: React.ReactNode;  // 额外内容
     image?: NodeRequire;  // 空图片
     imageStyle?: ImageStyle,  // 图片样式
@@ -19,8 +14,8 @@ export interface IProps {
 const Empty: React.FC<IProps> = (props) => {
     const {
         extra,
-        image = require('../../static/images/empty.png'),
-        text = '暂无股票',
+        image = require('../../static/empty.png'),
+        text = 'empty',
         style,
         imageStyle,
         textStyle,

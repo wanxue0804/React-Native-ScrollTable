@@ -9,6 +9,7 @@ import RefreshControl from './refresh';
 interface IProps extends Omit<ScrollViewProps, 'onScrollBeginDrag' | 'onMomentumScrollEnd'> {
     style?: StyleProp<ViewStyle>;
     refreshing: boolean,
+    refreshImg?: NodeRequire;
     onRefresh?: () => void,
 }
 
@@ -18,7 +19,7 @@ export default class Refreshfn extends React.Component<IProps>{
 
 
     render(){
-        const { style, refreshing, onRefresh, ...rest } = this.props;
+        const { style, refreshing, onRefresh, refreshImg, ...rest } = this.props;
         return (
             <ScrollView
                 ref={c => this._scrollview = c}
@@ -27,6 +28,7 @@ export default class Refreshfn extends React.Component<IProps>{
                     <RefreshControl
                         refreshing={refreshing}
                         onRefresh={onRefresh}
+                        refreshImg={refreshImg}
                     />
                 }
                 {...rest}

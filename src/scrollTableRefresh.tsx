@@ -1,83 +1,35 @@
-import React, { useState, useEffect, useRef, isValidElement, ReactNode, } from 'react';
-import { View, Text, FlatList, StyleSheet, RefreshControl, ViewStyle, Platform, ScrollView, ScrollViewProps, TouchableWithoutFeedback } from 'react-native';
+import React, { useState, useEffect, useRef, isValidElement } from 'react';
+import { View, Text, FlatList, StyleSheet, Platform, ScrollView, TouchableWithoutFeedback } from 'react-native';
 // @ts-ignore
-import ScrollViewCustom from './components/Scroll';
-// import Link from '@/components/Btn/link';
+import CustomScrollView from './components/CustomScrollView';
 import Sort from './components/Table/sort';
-import Empty, { IProps as EmptyPropsType } from './components/Empty';
-import ListFooter from './components/List/footer';
+import Empty from './components/Table/empty';
+import ListFooter from './components/Table/footer';
+import ScrollTableProps, { HeaderAlign, Iorder } from './type.d'
 
-
-export type HeaderAlign = 'flex-start' | 'flex-end' | 'center';
-export type IjustifyContent = "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly";
-export type Iorder = "" | "asc" | "desc";
-export interface Icolumns {
-  dataIndex: string;
-  title?: string | ReactNode;
-  flex?: number; // 第一列为相对盒子的flex数值 其他列为右侧宽度的百分比
-  style?: ViewStyle; // 单元格样式
-  sorter?: Iorder; // 排序
-  sortEmpty?: boolean; // 是否允许默认排序
-  sortHeaderAlign?: HeaderAlign;  // 只能控制sort样式 可通过style修改样式
-  render?: (value?: string | number, item?: any) => string | ReactNode;
-}
-interface Ipagination {
-  pageIndex: number;
-  pageTotal: number;
-  startIndex: number; // 分页第一页的索引
-}
-interface Isort {
-  order: string;
-  field: string;
-}
-
-export interface Istyle {
-  theaderStyle?: ViewStyle;
-  tbodyStyle?: ViewStyle;
-}
-export interface Iprops extends ScrollViewProps {
-  data: any[]; // 数据源
-  columns: Icolumns[];
-  onRefresh?: () => void; // 下拉刷新
-  onChange?: (pagination: Ipagination, order: Isort) => void; // 排序、上拉加载
-  pagination?: Ipagination; // 分页配置
-  loading?: boolean | undefined; // 请求的loading
-  rowEvent?: {
-    href?: string;
-    params?: {
-      [key: string]: string | number;
-    };
-    onRowPress?: (item: any, index: number) => void;
-  };
-  rowHeight?: number; // 行高 统一值 默认40
-  rowStyle?: (index?: number) => ViewStyle;
-  refreshing?: boolean; // 下拉刷新的refreshing状态
-  horizontalScroll?: boolean; // 是否允许左右滚动
-  styles?: Istyle;
-  renderFooter?: () => ReactNode;
-  emptyConfig?: EmptyPropsType;
-  restScollView?: ScrollViewProps; // 水平的滚动的配置
+interface Iprops extends ScrollTableProps {
+  refreshImg?: NodeRequire;
 }
 
 function ScrollTable ({
   data,
   columns,
-  pagination,
-  loading,
-  rowEvent,
   rowHeight,
+  loading,
+  refreshing = false,
   horizontalScroll,
+  pagination,
+  styles: propsStyles,
+  emptyConfig,
+  restScollView,
+  rowStyle,
   onChange,
   onRefresh: handleRefresh,
-  styles: propsStyles,
+  onRowPress,
   renderFooter,
-  emptyConfig,
-  rowStyle,
-  restScollView,
   ...resProps
 }: Iprops) {
   const headScrollRef = useRef(null);
-  const { onRowPress, ...restRow } = rowEvent;
   const [rightBoxWidth, setRightBoxWidth] = useState(0);
   const [orderParams, setOrderParams] = useState({
     order: '',
@@ -168,7 +120,7 @@ function ScrollTable ({
     }
     let renderResult = isValidElement(firstColContent) ? firstColContent : <Text>{firstColContent}</Text>
     return (
-      <TouchableWithoutFeedback key={index} {...restRow} onPress={() => onRowPress && onRowPress(item, index)}>
+      <TouchableWithoutFeedback key={index} onPress={() => onRowPress && onRowPress(item, index)}>
         <View style={[styles.tableRow, { height: rowHeight }, rowStyle && {...rowStyle(index)}]}>
           <View style={[styles.tableCell, columns[0]?.style, { flex: 1 }]}>{renderResult}</View>
         </View>
@@ -179,7 +131,7 @@ function ScrollTable ({
   // 渲染右侧滚动的行数据
   const renderRestRowItem = ({item, index}) => {
     return (
-      <TouchableWithoutFeedback key={index} onPress={() => onRowPress && onRowPress(item, index)} {...restRow}>
+      <TouchableWithoutFeedback key={index} onPress={() => onRowPress && onRowPress(item, index)}>
         <View style={[styles.tableRow, { height: rowHeight }, rowStyle && {...rowStyle(index)}]}>
           {renderTableCellItem(item)}
         </View>
@@ -262,6 +214,13 @@ function ScrollTable ({
             {...restScollView}
           >
             <View>
+              {/* <FlatList
+                data={data}
+                scrollEnabled={false}
+                keyExtractor={(item, index) => `${index}`}
+                renderItem={renderRestRowItem}
+              /> */}
+              {/* 0.62以上在ScrollView内使用FlatList会直接崩溃 0.62仅是个警告 */}
               {data.map((item, index) => renderRestRowItem({item, index}))}
             </View>
           </ScrollView>
@@ -291,7 +250,7 @@ function ScrollTable ({
 
 
   return (
-    <ScrollViewCustom
+    <CustomScrollView
       stickyHeaderIndices={[0]}
       onScroll={ Platform.OS === 'android' ? handleScrollEnd : null}
       onMomentumScrollEnd={ Platform.OS === 'ios' ? handleScrollEnd : null}
@@ -326,21 +285,25 @@ function ScrollTable ({
       {renderTableBody()}
 
       {renderTableFooter()}
-    </ScrollViewCustom>
+    </CustomScrollView>
   );
 }
 
 ScrollTable.defaultProps = {
-  rowEvent: {},
   pagination: {},
   rowHeight: 40,
   styles: {},
   emptyConfig: {
-    text: '暂无数据',
+    text: 'no data',
   }
 };
 
 export default ScrollTable;
+export type {
+  HeaderAlign,
+  Iorder,
+  Iprops
+}
 
 const styles = StyleSheet.create({
   thead: {
@@ -352,11 +315,9 @@ const styles = StyleSheet.create({
   },
   tableFirstCol: {
     flex: 0.5,
-    // backgroundColor: 'green'
   },
   tableRestCols: {
     flex: 1,
-    // backgroundColor: 'yellow'
   },
   tableRow: {
     flexDirection: 'row',
@@ -367,3 +328,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   }
 });
+

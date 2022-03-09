@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlexAlignType } from 'react-native';
-import ScrollTable, { HeaderAlign, Iorder } from '../scrollTableRefresh';
+import ScrollTable, { HeaderAlign, Iorder } from 'react-native-scrollview-table';
 import DataSource from './mockdata';
 
 
@@ -234,7 +234,6 @@ function CustomRefreshScrollTable () {
     }, 2000);
   };
 
-
   // 获取颜色
   const getColor = (number: string | number, black?: string) => {
     let color = '#313131';
@@ -262,14 +261,13 @@ function CustomRefreshScrollTable () {
   };
 
   // 下拉刷新 如果不需要设置刷新状态展示效果 可以不需要此方法 会自动执行 handleTableChange
-  const handleRefresh = () => {
-    setRefreshing(true);
+  const handleRefresh = async () => {
+    await setRefreshing(true);
     setQueryParams({
       ...queryParams,
       pageIndex: 1
     });
   }
-
 
   return (
     <View style={{ flex: 1, backgroundColor: '#fff' }}>

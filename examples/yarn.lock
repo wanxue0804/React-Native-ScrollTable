@@ -5228,7 +5228,7 @@ prompts@^2.0.1, prompts@^2.4.0:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.5.10:
+prop-types@*, prop-types@^15.5.10:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -5331,7 +5331,24 @@ react-native-screens@^3.13.1:
     react-freeze "^1.0.0"
     warn-once "^0.1.0"
 
-react-native@0.66.4:
+react-native-scrollview-table@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/react-native-scrollview-table/-/react-native-scrollview-table-1.0.8.tgz#37a4e8462e170b4302a8f9a8f4a6e5d8352e5151"
+  integrity sha512-VeyfBDZfnroajO9eHDmLB9uYM41X0rPWHTE2kI3CMZbBbkM5f0SPQ6tGvvKsCnstE/RLLofjPkd+Uu/NBcpSIw==
+  dependencies:
+    lottie-react-native "^5.0.1"
+    react "^17.0.2"
+    react-native "^0.66.4"
+    react-native-smartrefreshlayout "^0.6.7"
+
+react-native-smartrefreshlayout@^0.6.7:
+  version "0.6.7"
+  resolved "https://registry.yarnpkg.com/react-native-smartrefreshlayout/-/react-native-smartrefreshlayout-0.6.7.tgz#b0087d6b787106d36f7f37241367ef9a2c3f550b"
+  integrity sha512-Gy1GGyofeKUQyiMsMpYJJSMARIkWlhU+GOoBZfxr+0p7cPizm9Kgkmx510GZN4nZvHRRdS8szeTrtdpHzPXwuQ==
+  dependencies:
+    prop-types "*"
+
+react-native@0.66.4, react-native@^0.66.4:
   version "0.66.4"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.66.4.tgz#bf89a5fb18bd23046d889fb4de4ea2822a4d7805"
   integrity sha512-9vx5dlSfQlKbbDtr8+xMon6qsmSu7jvjdXWZpEKh3XVKpUidbbODv7048gwVKX8YAel1egeR7hN8vzSeI6ssTw==
@@ -5391,7 +5408,7 @@ react-test-renderer@17.0.2:
     react-shallow-renderer "^16.13.1"
     scheduler "^0.20.2"
 
-react@17.0.2:
+react@17.0.2, react@^17.0.2:
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react/-/react-17.0.2.tgz#d0b5cc516d29eb3eee383f75b62864cfb6800037"
   integrity sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==

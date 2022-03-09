@@ -9,7 +9,6 @@ import {
   View,
   ViewStyle
 } from 'react-native'
-import LottieView from 'lottie-react-native';
 import RefreshView from './customRefreshView';
 
 const RefreshStatus = {
@@ -19,15 +18,16 @@ const RefreshStatus = {
 }
 
 interface Iprops extends Omit<ScrollViewProps, 'onScrollBeginDrag' | 'onMomentumScrollEnd'> {
-    refreshableTitlePull?: string,
-    refreshing: boolean,
-    refreshViewHeight?: number,
-    refreshableTitleRelease?: string,
-    onScrollBeginDrag?: (e) => void,
-    refreshableTitleRefreshing?: string,
-    onRefresh?: (e) => void,
-    customRefreshView?: (a, b) => React.ReactNode,
-    refreshViewStyle?: ViewStyle
+  refreshableTitlePull?: string,
+  refreshing: boolean,
+  refreshViewHeight?: number,
+  refreshableTitleRelease?: string,
+  onScrollBeginDrag?: (e) => void,
+  refreshableTitleRefreshing?: string,
+  onRefresh?: (e) => void,
+  customRefreshView?: (a, b) => React.ReactNode,
+  refreshViewStyle?: ViewStyle;
+  refreshImg?: NodeRequire;
 }
 
 interface Istate{
@@ -176,6 +176,7 @@ export default class RefreshableScrollView extends Component<Iprops, Istate>{
         <RefreshView
           refreshStatus={this.state.refreshStatus}
           offset={this._offsetY}
+          refreshImg={this.props.refreshImg}
         />
       </View>
     );
@@ -188,6 +189,7 @@ export default class RefreshableScrollView extends Component<Iprops, Istate>{
     if(Array.isArray(stickyHeaderIndices) && stickyHeaderIndices.length > 0){
         other.stickyHeaderIndices = stickyHeaderIndices.map(item => item+ 1);
     }
+
     return (
       <ScrollView
         ref={c => this._scrollview = c}

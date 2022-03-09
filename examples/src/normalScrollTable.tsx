@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlexAlignType, Alert } from 'react-native';
-import ScrollTable, { HeaderAlign, Iorder } from '../scrollTable';
+import ScrollTable, { HeaderAlign, Iorder } from 'react-native-scrollview-table';
 import DataSource from './mockdata';
 
-
 function NormalScrollTable () {
+// console.log({Test})
+
   const [data, setData] = useState({
     lst: [],
     pg: {

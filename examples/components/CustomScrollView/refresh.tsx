@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { Animated, Easing, View, ViewStyle, Text, StyleProp, StyleSheet, Dimensions, RefreshControl, RefreshControlProps, Image, Platform } from 'react-native';
 // @ts-ignore
-import { SmartRefreshControl, AnyHeader} from 'react-native-smartrefreshlayout';
+import { SmartRefreshControl, AnyHeader } from 'react-native-smartrefreshlayout';
 import RefreshView from './customRefreshView';
 
 const { width: viewportWidth } = Dimensions.get('window');
@@ -13,10 +13,11 @@ interface IProps extends RefreshControlProps {
     refreshing: boolean,
     onRefresh?: () => void,
     refreshView ?: React.ReactNode
+    refreshImg?: NodeRequire;
 }
 
 
-const Refreshfn: React.FC<IProps> = ( { style, title, refreshing, onRefresh, refreshView, ...rest }) => {
+const Refreshfn: React.FC<IProps> = ( { style, title, refreshing, onRefresh, refreshView, refreshImg, ...rest }) => {
     const _refreshc = useRef(null);
     const [status, setStatus] = useState(0);
     
@@ -26,22 +27,6 @@ const Refreshfn: React.FC<IProps> = ( { style, title, refreshing, onRefresh, ref
         }
     }, [refreshing]);
     
-    // if(Platform.OS === 'ios'){
-    //     return ( 
-    //         <RefreshControl
-    //             tintColor={'transparent'}
-    //             style={[styles.main, style]}
-    //             refreshing = {refreshing}
-    //             onRefresh={onRefresh}
-    //             {...rest}
-    //         >
-    //             {refreshView || <RefreshView
-    //                 refreshStatus={status}
-    //                 offset={0}
-    //             />}
-    //         </RefreshControl>
-    //     );
-    // }
 
     return (
         <SmartRefreshControl 
@@ -61,6 +46,7 @@ const Refreshfn: React.FC<IProps> = ( { style, title, refreshing, onRefresh, ref
                    {refreshView || <RefreshView
                         refreshStatus={status}
                         offset={0}
+                        refreshImg={refreshImg}
                     />}
                 </AnyHeader>
             }

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, Text, TouchableWithoutFeedback, FlexAlignType, StyleSheet, Alert } from 'react-native';
-import ScrollTable, { HeaderAlign, Iorder } from '../scrollTable';
+import ScrollTable from 'react-native-scrollview-table';
 import DataSource from './mockdata';
 
 

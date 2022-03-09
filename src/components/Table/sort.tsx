@@ -2,9 +2,6 @@ import React, { useEffect, useState, useCallback, isValidElement} from 'react';
 import { Text, View, ViewStyle, TextStyle, StyleSheet, StyleProp, TouchableWithoutFeedback } from 'react-native';
 
 
-
-// 排序 待完善
-
 interface IProps {
     style?: StyleProp<ViewStyle>;
     textStyle?: StyleProp<TextStyle>;

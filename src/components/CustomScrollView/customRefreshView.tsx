@@ -1,13 +1,9 @@
 import React, { Component, useMemo } from 'react'
 import {
-  Animated,
   Image,
-  ScrollView,
-  ScrollViewProps,
   StyleSheet,
   Text,
   View,
-  ViewStyle
 } from 'react-native'
 import LottieView from 'lottie-react-native';
 
@@ -18,7 +14,7 @@ const RefreshTitleArr = [
 ];
 
 
-function RefreshView({ refreshStatus, offset }){    
+function RefreshView({ refreshStatus, refreshImg, offset }){    
 
   const refreshEl = useMemo(() => {
     return (
@@ -28,12 +24,12 @@ function RefreshView({ refreshStatus, offset }){
           ?
           <LottieView
             style={styles.img}
-            source={require('../../static/loading/refresh.json')} 
+            source={refreshImg || require('../../static/refresh.json')} 
             autoPlay 
             loop={true}
           />
           :
-          <Image style={{ width: 50, height: 50 }} source={require('../../static/images/refresh.png')} />
+          <Image style={{ width: 50, height: 50 }} source={require('../../static/refresh.png')} />
         }
         <Text style={styles.text}>{RefreshTitleArr[refreshStatus]}</Text>
       </View>

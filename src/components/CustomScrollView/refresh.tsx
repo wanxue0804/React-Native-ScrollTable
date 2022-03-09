@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { Animated, Easing, View, ViewStyle, Text, StyleProp, StyleSheet, Dimensions, RefreshControl, RefreshControlProps, Image, Platform } from 'react-native';
 // @ts-ignore
-import { SmartRefreshControl, AnyHeader} from 'react-native-smartrefreshlayout';
+import { SmartRefreshControl, AnyHeader } from 'react-native-smartrefreshlayout';
 import RefreshView from './customRefreshView';
 
 const { width: viewportWidth } = Dimensions.get('window');

@@ -3,10 +3,6 @@ import { View, Image, StyleSheet, Text, ViewStyle, ImageStyle, TextStyle, Toucha
 
 export interface IProps {
     style?: ViewStyle,
-    href?: string;
-    params?: {
-        [key: string]: any;
-    };
     extra?: React.ReactNode;  // 额外内容
     image?: NodeRequire;  // 空图片
     imageStyle?: ImageStyle,  // 图片样式
@@ -19,7 +15,7 @@ const Empty: React.FC<IProps> = (props) => {
     const {
         extra,
         image = require('../../static/empty.png'),
-        text = '暂无股票',
+        text = 'empty',
         style,
         imageStyle,
         textStyle,
