@@ -11,7 +11,7 @@
     "ios",
     "scrollTable"
   ],
-  "author": "wanxue_0804",
+  "author": "wanxue0804",
   "license": "MIT",
   "dependencies": {
     "lottie-react-native": "^5.0.1",
